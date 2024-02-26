@@ -27,8 +27,8 @@ if (!$conn) {
 
 <body>
     <header>
-        <h2 class="menu-item"><a id="Logo" href="homepage.php">KHAOTOM</a></h2>
         <div class="navigation">
+            <h2 class="menu-item"><a id="Logo" href="homepage.php">KHAOTOM</a></h2>
             <ul class="dropdown">
                 <a class="dropdown-nagivation" href="homepagephp.php?Gender=w">WOMEN</a>
                 <ul class="dropdown-body">
@@ -54,6 +54,9 @@ if (!$conn) {
                 </ul>
             </ul>
         </div>
+        <div class="profile">
+            profile
+        </div>
     </header>
 
     <div>
@@ -67,21 +70,21 @@ if (!$conn) {
                 $sql = mysqli_query($conn, "SELECT * FROM bill WHERE UserID = $userID");
                 $result = mysqli_fetch_all($sql);
                 $BID = $result1['BID'];
-            
+
                 $sql2 = mysqli_query($conn, "SELECT * FROM billdetail WHERE BID = $BID");
                 $result2 = mysqli_fetch_all($sql2);
                 $productID = $result2['ProductID'];
             } else {
                 $_SESSION['error'] = "Something Wrong ?";
                 header("location: homepage.php");
-            }            
-            $php = "SELECT * FROM product WHERE ProductID = $productID";
-            $stmt = mysqli_query($conn, $php);
-            $result3 = mysqli_fetch_all($stmt);
+            }
+                $php = "SELECT * FROM product WHERE ProductID = $productID";
+                $stmt = mysqli_query($conn, $php);
+                $result3 = mysqli_fetch_all($stmt);
             ?>
             <table>
                 <?php
-                
+
                 if (empty($result)) {
                     echo "<tr><td colspan='10' class='text-center'>Cart is empty</td></tr>";
                 } else {
