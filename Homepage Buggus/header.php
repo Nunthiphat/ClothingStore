@@ -1,6 +1,6 @@
 <html>
     <head>
-    <link rel="stylesheet" href="header.css">
+    <link rel="stylesheet" href="Style.css">
     </head>
         <h2 class="menu-item"><a id="Logo" href="homepage.php">KHAOTOM</a></h2>
         <div class="navigation">
