@@ -13,9 +13,14 @@ $Password = $_SESSION['password'];
 $Check = "SELECT * FROM useraccount WHERE UserEmail = '$Email' AND UserPassword = '$Password' ";
 $result = mysqli_query($conn , $Check);
 
+$data = mysqli_fetch_array($result);
+echo $data['UserType'];
 
-if (mysqli_num_rows($result) > 0){
-    $data = mysqli_fetch_array($result);
+if($data['UserType'] == "E"){
+
+  header("location: Account.php");
+
+}elseif (mysqli_num_rows($result) > 0){
     
     // ดึงตัวนี้ไปนะถ้าใช้ดึง UserID
     $_SESSION['UserID'] = $data['UserID'];
@@ -26,6 +31,7 @@ if (mysqli_num_rows($result) > 0){
   
     $_SESSION['Loginerror'] = "Email หรือ Password ไม่ถูกต้อง";
     header("location: Login.php");
+    
 }
 
 ?>
@@ -42,7 +48,7 @@ if (mysqli_num_rows($result) > 0){
 
   <div class="container">
 
-    <!-- อย่าลืมเปลี่ยน action -->
+    <!-- อย่าลืมเปลี่ยนไปหน้า Home action -->
     <form action="#" method="post">
 
     <div class="success-animation">
