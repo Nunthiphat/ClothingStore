@@ -12,15 +12,12 @@
         <title>Homepage</title>
     </head>
     <body>
-<<<<<<< Updated upstream
         <header>
             <?php include('C:\xampp\htdocs\Database\akira_project\header.php'); ?>
         </header>
         <!-- content -->
         <!-- advertisement -->
-=======
             <?php include('header.php'); ?> 
->>>>>>> Stashed changes
         <?php
         if(isset($_SESSION["fn"])){
             foreach($_SESSION["fn"] as $x) {
