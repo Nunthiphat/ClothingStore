@@ -11,30 +11,13 @@
         <title>Homepage</title>
     </head>
     <body>
-        <header>
-            <!-- logo -->
-            <a href="homepage.php">Homepage</a>
-            <!-- nav -->
-            <nav>
-                <a href="homepagephp.php?gender=w" class="women">women</a>
-                <a href="homepagephp.php?gender=m" class="women">men</a>
-                <a href="homepagephp.php?gender=k" class="kid">kid</a>
-                <form action="homepage.php" method="GET">
-                    <input type="text" name="gender">
-                    <button type="submit">ok</button>
-                </form>
-                <a href="#">profile</a>
-                <a href="#">favourite</a>
-                <a href="#">Bracket</a>
-            </nav>
-        </header>
-
+    <?php include('C:\xampp\htdocs\Database\akira_project\header.php'); ?>
         <!-- content -->
         <!-- advertisement -->
         <?php
         if(isset($_SESSION["fn"])){
             foreach($_SESSION["fn"] as $x) {
-                echo "<a href='Clothingphp.php?clothname=".$x['ProductName']."&price=".$x['ProductPrice']."&photo=".$x['ProductPicture']."'>".$x['ProductName']."</a><br>";
+                echo "<a href='Clothingphp.php?clothname=".$x['ProductName']."'>".$x['ProductName']."</a><br>";
             }
         }
         ?>

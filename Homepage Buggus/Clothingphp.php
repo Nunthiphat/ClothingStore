@@ -39,48 +39,192 @@ function selectsize($conn, $clothname){
     mysqli_stmt_close($stmt);
 }
 
-//for submit to bey (addd to baracket)
-if (isset($_POST["Submit"])) {
+function selectprice($conn, $clothname){
+    $sql = "SELECT DISTINCT ProductPrice FROM `product` WHERE ProductName = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: homepage.php?error=StmtFaild");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s", $clothname);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($resultData);
+    if ($row) {
+        $_SESSION["pjPrice"] = $row['ProductPrice'];
+    } else {
+        return false;
+    }
+    mysqli_stmt_close($stmt);
+}
 
+function selectPID($conn, $ProductName, $ProductSize, $ProductPrice, $ProductColor, $Producttype, $ProductGender){
+    $sql = "SELECT ProductID FROM `product` WHERE ProductName = ? AND ProductSize = ? AND ProductPrice = ? AND ProductColor = ? AND ProductType = ? AND ProductGender = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: homepage.php?error=StmtFaild");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "ssssss", $ProductName, $ProductSize, $ProductPrice, $ProductColor, $Producttype, $ProductGender);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($resultData);
+    if ($row) {
+        $_SESSION["pjCloth"] = $row['ProductID'];
+    } else {
+        return false;
+    }
+    mysqli_stmt_close($stmt);
+}
+// Show BILL
+function selectBID($conn, $UserID){
+    $sql = "SELECT BID FROM `bill` WHERE UserID = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: homepage.php?error=StmtFaild");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "i", $UserID);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($resultData);
+    if ($row) {
+        $_SESSION["BID"] = $row['BID'];
+    } else {
+        return false;
+    }
+    mysqli_stmt_close($stmt);
+}
+
+function updatebill($conn, $TotalPrice, $UserID){
+    $sql = "UPDATE `bill` SET `TotalPrice` = ? WHERE `bill`.`UserID` = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: homepage.php?error=StmtFaild");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "di", $TotalPrice, $UserID);
+    mysqli_stmt_execute($stmt);
+}
+
+function selectphoto($conn, $clothname, $color){
+    $sql = "SELECT ProductPicture FROM `product` WHERE ProductName = ? AND ProductColor = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: homepage.php?error=StmtFaild");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "ss", $clothname, $color);
+    mysqli_stmt_execute($stmt);
+    $resultData = mysqli_stmt_get_result($stmt);
+    $row = mysqli_fetch_assoc($resultData);
+    if ($row) {
+        $_SESSION["pjPhoto"] = $row['ProductPicture'];
+    } else {
+        return false;
+    }
+    mysqli_stmt_close($stmt);
+}
+
+// Gen BID
+function addbill($conn, $TotalPrice, $UserID){
+    $sql = "INSERT INTO `bill` (`BID`, `TotalPrice`, `UserID`) VALUES (NULL, ?, ?)";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location:homepage.php?error=StmtFaild");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "di", $TotalPrice, $UserID);                                          
+    mysqli_stmt_execute($stmt);
+}
+
+function addbilltail($conn, $BID, $ProductBillUnit, $BDDate, $ProductID){
+    $sql = "INSERT INTO `billdetail` (`BDID`, `BID`, `ProductBillUnit`, `BDDate`, `ProductID`) VALUES (NULL, ?, ?, ?, ?)";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location:homepage.php?error=StmtFaild");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "iidi", $BID, $ProductBillUnit, $BDDate, $ProductID);                                        
+    mysqli_stmt_execute($stmt);
+}
+
+//for addbill to bey (addd to baracket)
+if (isset($_POST["addbill"])) {
+    // EXAMPLE USER ID DONT FOR GET TO REMOVE
+    $_SESSION["UserID"] = 74;
+    if(isset($_SESSION["UserID"])){
+        $UserID = $_SESSION["UserID"];
+    }
     if (isset($_POST["SelectColor"]) && isset($_POST["SelectSize"]) && isset($_POST["SelectAmount"])) {
-        $Color = $_POST["SelectColor"];
-        $Size = $_POST["SelectSize"];
-        $Amount = $_POST["SelectAmount"];
+        $ProductName = $_SESSION["clothname"];
+        $ProductSize = $_POST["SelectSize"];
+        $ProductColor = $_POST["SelectColor"];
+        $ProductPrice = $_SESSION["pjPrice"];
+        $ProductBillUnit = $_POST["SelectAmount"];
+        $Producttype = $_SESSION["Type"];
+        $ProductGender = $_SESSION["gender"];
 
-        // SESSION เอาไว้ใช้กับตระกร้าอยู่ตรงนี้นะเนทคร้าบบบบ
-        // SESSION GENDER กำหนดเรียกได้เลยจาก $_SESSION["gender"]; คร้าบบบบบ
-        $_SESSION["Color"] = $Color;
-        $_SESSION["Size"] = $Size;
-        $_SESSION["Amount"] = $Amount;
+        $TotalPrice = $ProductBillUnit * $ProductPrice;
+        $_SESSION["TotalPrice"] += $TotalPrice;
 
-        header("location: Clothing.php?Success");
+        if(!isset($_SESSION["BID"])){
+            addbill($conn, $_SESSION["TotalPrice"], $UserID);
+            selectBID($conn, $UserID);
+            $BID = $_SESSION["BID"];
+        }
+        else {
+            // Update BILL dataBase
+            updatebill($conn, $_SESSION["TotalPrice"], $UserID);
+            selectBID($conn, $UserID);
+            $BID = $_SESSION["BID"];
+            selectPID($conn, $ProductName, $ProductSize, $ProductPrice, $ProductColor, $Producttype, $ProductGender);
+            $ProductID = $_SESSION["pjCloth"];
+            $BDDate = "2024-02-01"; // ลบด้วยตัวอ่างนะ
+            addbilltail($conn, $BID, $ProductBillUnit, $BDDate, $ProductID);
+        }
+
+        header("location: Clothing.php?Success&$ProductName&$ProductSize&$ProductPrice&$ProductColor&$ProductGender");
         exit();
     } else {
         header("location: Clothing.php?EmptyData");
         exit();
     }
-// for chang page to this page function shuld be run here 
-} elseif (isset($_GET["clothname"])) {
-
-    $clothname = $_GET["clothname"];
-    $price = $_GET["price"];
-    $photo = $_GET["photo"];
-
-    $_SESSION["clothname"] = $clothname;
-    $_SESSION["price"] = $price;
-    $_SESSION["photo"] = $photo;
-
+// for show cloth
+} elseif (isset($_POST["Show"])){
+    $clothname = $_SESSION["clothname"];
+    if(!isset($_POST["SelectColor"])){
+        $color = $_SESSION["Color"];
+    } else {
+        $color = $_POST["SelectColor"];
+        $_SESSION["Color"] = $color;
+    }
+    selectphoto($conn, $clothname, $color);
+    selectprice($conn, $clothname);
     selectcolor($conn, $clothname);
     selectsize($conn, $clothname);
 
-    header("location: Clothing.php?success");
-    exit();
-// delet when not use - gus
-} elseif (isset($_POST["reset"])){
-    session_destroy();
-    header("location: Clothing.php?reset");
+    header("location: Clothing.php?color=$color");
     exit();
 
+// for chang page to this page function shuld be run here 
+} elseif (isset($_GET["clothname"])) {
+    $clothname = $_GET["clothname"];
+    $_SESSION["clothname"] = $clothname;
+
+    if(isset($_SESSION["Color"])){
+        $color = "Black";
+        $_SESSION["Color"] = $color;
+    } else {
+        $color = "Black";
+    }
+    selectphoto($conn, $clothname, $color);
+    selectprice($conn, $clothname);
+    selectcolor($conn, $clothname);
+    selectsize($conn, $clothname);
+
+    header("location: Clothing.php");
+    exit();
 } else {
     header("location: Clothing.php?error");
     exit();

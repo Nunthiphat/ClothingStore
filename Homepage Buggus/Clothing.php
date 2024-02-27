@@ -13,33 +13,22 @@
         <?php echo "<title>".$_SESSION["clothname"]."</title>";?>
     </head>
     <body>
-    <header>
-            <!-- logo -->
-            <a href="homepage.php">Homepage</a>
-            <!-- nav -->
-            <nav>
-                <a href="homepagephp.php?gender=w" class="women">women</a>
-                <a href="homepagephp.php?gender=m" class="women">men</a>
-                <a href="homepagephp.php?gender=k" class="kid">kid</a>
-                <form action="homepage.php" method="GET">
-                    <input type="text" name="gender">
-                    <button type="submit">ok</button>
-                </form>
-                <a href="#">profile</a>
-                <a href="#">favourite</a>
-                <a href="#">Bracket</a>
-            </nav>
-        </header>
+    <?php include('C:\xampp\htdocs\Database\akira_project\header.php'); ?>
         <?php 
             //cloth name
             echo "<h1>".$_SESSION["clothname"]."</h1>";
             //cloth Photo
-            echo "<img src='".$_SESSION["photo"]."' alt='Product Photo'>";
+            if(isset($_SESSION["pjPhoto"])){
+                echo "<img src='".$_SESSION["pjPhoto"]."' alt='Product Photo'>";
+            }
             //cloth price
-            echo "<h2>THB ".$_SESSION["price"]."</h2>"; 
+            if(isset($_SESSION["pjPrice"])){
+                echo "<h2>THB ".$_SESSION["pjPrice"]."</h2>";
+            }
+            
         ?>
         <form action="Clothingphp.php" method="post">
-            <input type="submit" name="reset" value="Rest"><br>
+            <!-- <input type="submit" name="reset" value="Rest"><br> -->
             สี :
             <?php
             if(isset($_SESSION["Color"])){
@@ -96,7 +85,8 @@
                 <option value="6">6</option>
             </select>
             </div>
-            <input type="submit" name="Submit" value="ADD TO Bracket">
+            <input type="submit" name="Show" value="Show">
+            <input type="submit" name="addbill" value="ADD TO Bracket">
         </form>
     </body>
 </html>
