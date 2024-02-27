@@ -11,8 +11,6 @@
         <title>Homepage</title>
     </head>
     <body>
-
-    <?php include(''); ?>
         <header>
             <?php include('C:\xampp\htdocs\Database\akira_project\header.php'); ?>
         </header>
@@ -33,7 +31,8 @@
                                 <img width="400px" src="<?= $x['ProductPicture'] ?>" class="rounded" alt="">
                                 <div class="card-body">
                                     <h5 class="card-title"><?= $x['ProductName'] ?></h5>
-                                    <h5 class="card-title"><?= $x['ProductColor'] ?></h5>
+                                    <h5 class="card-title">Color : <?= $x['ProductColor'] ?></h5>
+                                    <h5 class="card-title">Size :<?= $x['ProductSize'] ?></h5>
                                     <a href='Clothingphp.php?clothname=<?= $x["ProductName"]?>&color=<?= $x["ProductColor"]?>&size=<?= $x["ProductSize"]?>'>Buy</a><br>
                                 </div>
                             </div>
