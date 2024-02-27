@@ -13,11 +13,10 @@
     </head>
     <body>
         <header>
-            <?php include('C:\xampp\htdocs\Database\akira_project\header.php'); ?>
+            <?php include('C:\xampp\htdocs\Homepage Buggus\header.php'); ?>
         </header>
         <!-- content -->
         <!-- advertisement -->
-            <?php include('header.php'); ?> 
         <?php
         if(isset($_SESSION["fn"])){
             foreach($_SESSION["fn"] as $x) {

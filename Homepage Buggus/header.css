@@ -15,6 +15,7 @@ header {
     align-items: center;
     padding-inline: 5px;
     max-width: 100%;
+    position: relative;
 }
 
 header .menu-item a {
@@ -98,6 +99,7 @@ ul.dropdown-body li a {
     width: 80px;
     color: aliceblue;
     text-transform: uppercase;
+    position: absolute;
 }
 
 .btn-profile:hover {
@@ -123,7 +125,7 @@ li {
 
 .Cart {
     padding: 0.5rem 1.5rem;
-    background-color: rgba(79, 125, 216, 0.926);
+    background-color: rgba(13, 79, 209, 0.926);
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.5s ease;
