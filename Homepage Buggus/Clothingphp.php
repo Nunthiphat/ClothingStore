@@ -107,14 +107,14 @@ function updatebill($conn, $TotalPrice, $UserID){
     mysqli_stmt_execute($stmt);
 }
 
-function selectphoto($conn, $clothname, $color){
-    $sql = "SELECT ProductPicture FROM `product` WHERE ProductName = ? AND ProductColor = ?;";
+function selectphoto($conn, $clothname, $Size, $color){
+    $sql = "SELECT ProductPicture FROM `product` WHERE ProductName = ? AND ProductSize = ? AND ProductColor = ?;";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt, $sql)){
         header("location: homepage.php?error=StmtFaild");
         exit();
     }
-    mysqli_stmt_bind_param($stmt, "ss", $clothname, $color);
+    mysqli_stmt_bind_param($stmt, "sss", $clothname, $Size, $color);
     mysqli_stmt_execute($stmt);
     $resultData = mysqli_stmt_get_result($stmt);
     $row = mysqli_fetch_assoc($resultData);
@@ -184,7 +184,7 @@ if (isset($_POST["addbill"])) {
             addbilltail($conn, $BID, $ProductBillUnit, $BDDate, $ProductID);
         }
 
-        header("location: Clothing.php?Success&$ProductName&$ProductSize&$ProductPrice&$ProductColor&$ProductGender");
+        header("location: homepage.php");
         exit();
     } else {
         header("location: Clothing.php?EmptyData");
@@ -193,32 +193,39 @@ if (isset($_POST["addbill"])) {
 // for show cloth
 } elseif (isset($_POST["Show"])){
     $clothname = $_SESSION["clothname"];
-    if(!isset($_POST["SelectColor"])){
-        $color = $_SESSION["Color"];
-    } else {
+
+    if(isset($_POST["SelectColor"])){
         $color = $_POST["SelectColor"];
         $_SESSION["Color"] = $color;
+    } else {
+        $color = $_SESSION["Color"];
     }
-    selectphoto($conn, $clothname, $color);
+    if(isset($_POST["SelectSize"])){
+        $size = $_POST["SelectSize"];
+        $_SESSION["Size"] = $size;
+    } else {
+        $size = $_SESSION["Size"];
+    }
+
+    selectphoto($conn, $clothname, $size, $color);
     selectprice($conn, $clothname);
     selectcolor($conn, $clothname);
     selectsize($conn, $clothname);
 
-    header("location: Clothing.php?color=$color");
+    header("location: Clothing.php?color=$color&size=$size");
     exit();
 
 // for chang page to this page function shuld be run here 
 } elseif (isset($_GET["clothname"])) {
     $clothname = $_GET["clothname"];
-    $_SESSION["clothname"] = $clothname;
+    $size = $_GET["size"];
+    $color = $_GET["color"];
 
-    if(isset($_SESSION["Color"])){
-        $color = "Black";
-        $_SESSION["Color"] = $color;
-    } else {
-        $color = "Black";
-    }
-    selectphoto($conn, $clothname, $color);
+    $_SESSION["clothname"] = $clothname;
+    $_SESSION["Size"] = $size;
+    $_SESSION["Color"] = $color;
+
+    selectphoto($conn, $clothname, $size, $color);
     selectprice($conn, $clothname);
     selectcolor($conn, $clothname);
     selectsize($conn, $clothname);
