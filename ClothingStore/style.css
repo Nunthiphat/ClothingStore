@@ -11,6 +11,7 @@ header {
     height: 100px;
     border-bottom: 0.25rem solid #000;
     background-color: white;
+    justify-content: space-between;
     justify-items: center;
     align-items: center;
     padding-inline: 5px;
@@ -98,4 +99,8 @@ ul.dropdown-body li a {
 
 .div2 {
     grid-area: 1 / 4 / 6 / 6;
+}
+
+.profile {
+    margin-inline: 5rem;
 }
