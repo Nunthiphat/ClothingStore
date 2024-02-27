@@ -2,7 +2,7 @@
 	session_start();
 
 	function ViewCloth1($conn, $gender){
-        $sql = "SELECT * FROM product WHERE ProductGender = ?";
+        $sql = "SELECT DISTINCT ProductName FROM product WHERE ProductGender = ?";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)){
             header("location:homepage.php?error=StmtFaild");
@@ -24,7 +24,7 @@
 	}
 
 	function ViewCloth2($conn, $gender, $type){
-        $sql = "SELECT * FROM product WHERE ProductGender = ? AND ProductType = ?";
+        $sql = "SELECT DISTINCT ProductName FROM product WHERE ProductGender = ? AND ProductType = ?";
         $stmt = mysqli_stmt_init($conn);
         if(!mysqli_stmt_prepare($stmt, $sql)){
             header("location:homepage.php?error=StmtFaild");
