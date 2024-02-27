@@ -11,8 +11,6 @@
         <title>Homepage</title>
     </head>
     <body>
-
-    <?php include(''); ?>
         <header>
             <?php include('C:\xampp\htdocs\Database\akira_project\header.php'); ?>
         </header>
