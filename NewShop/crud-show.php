@@ -52,7 +52,7 @@
                     <td><?php echo $row["ProductPrice"]; ?></td>
                     <td><img src="<?php echo $row["ProductPicture"]; ?>" width="100" title="<?php echo $row['ProductPicture']; ?>"></td>
                     <td>
-                        <a href="<?= $product['ProductID'];?>" class="btn btn-danger" onclick="reture confirm('Are your sure you want to detele?');">ลบสินค้า</a>
+                        <a href="crud-delete.php?id=<?php echo $row['ProductID'] ?>" class="btn btn-danger" onclick="return confirm('Are you sure to delete?');" >ลบสินค้า</a>
                     </td>
             </tr>
         </tbody>    
