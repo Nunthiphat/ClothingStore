@@ -9,14 +9,20 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- <link rel="stylesheet" href="homepage.css"> - gus --> 
+        <link rel="stylesheet" href="Clothing.css">
         <?php echo "<title>".$_SESSION["clothname"]."</title>";?>
     </head>
     <body>
-    <?php include('C:\xampp\htdocs\Database\akira_project\header.php'); ?>
+    <header>
+        <?php include('C:\xampp\htdocs\Database\akira_project\header.php'); ?>
+    </header>
+    <div class ="box-main" >
+        <div>
         <?php 
             //cloth name
-            echo "<h1>".$_SESSION["clothname"]."</h1>";
+            if(isset($_SESSION["clothname"])){
+                echo "<h1>".$_SESSION["clothname"]."</h1>";
+            }
             //cloth Photo
             if(isset($_SESSION["pjPhoto"])){
                 echo "<img src='".$_SESSION["pjPhoto"]."' alt='Product Photo'>";
@@ -25,8 +31,8 @@
             if(isset($_SESSION["pjPrice"])){
                 echo "<h2>THB ".$_SESSION["pjPrice"]."</h2>";
             }
-            
         ?>
+        </div>
         <form action="Clothingphp.php" method="post">
             <!-- <input type="submit" name="reset" value="Rest"><br> -->
             สี :
@@ -37,7 +43,7 @@
             }
             // <!-- ColorSelect -->
             if(isset($_SESSION["pjColor"])){
-                //Dont forget to add class for css - gus
+                //Dont forget to add class for css
                 echo "<div>";
                 foreach($_SESSION["pjColor"] as $x){
                     echo "<label>";
@@ -57,7 +63,7 @@
             }
             // <!-- AmountSelect -->
             if(isset($_SESSION["pjSize"])){
-                //Dont forget to add class for css - gus
+                //Dont forget to add class for css
                 echo "<div>";
                 foreach($_SESSION["pjSize"] as $x){
                     echo "<label>";
@@ -69,7 +75,7 @@
             ?>
             จำนวน :
             <?php
-            // ค่าจำนวนจากการเลือกอันนี้เอาไปลบกับจำนวนตอนสั่งซื้อนะคร้าบบคุณเนท ตอนที่จายตังอะ - gus
+            // ค่าจำนวนจากการเลือกอันนี้เอาไปลบกับจำนวนตอนสั่งซื้อนะคร้าบบคุณเนท ตอนที่จายตังอะ
             if(isset($_SESSION["Amount"])){
                 $Amount = $_SESSION["Amount"];
                 echo $Amount;
@@ -87,6 +93,7 @@
             </div>
             <input type="submit" name="Show" value="Show">
             <input type="submit" name="addbill" value="ADD TO Bracket">
+        </div>
         </form>
     </body>
 </html>
