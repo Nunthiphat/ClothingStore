@@ -11,7 +11,7 @@
         <title>Homepage</title>
     </head>
     <body>
-    <?php include('C:\xampp\htdocs\Database\akira_project\header.php'); ?>
+    <?php include(''); ?>
         <!-- content -->
         <!-- advertisement -->
         <?php
