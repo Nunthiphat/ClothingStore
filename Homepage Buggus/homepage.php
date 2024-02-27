@@ -12,7 +12,7 @@
     </head>
     <body>
         <header>
-            <?php include('C:\xampp\htdocs\Homepage Buggus\header.php'); ?>
+            <?php include('C:\xampp\htdocs\Database\akira_project\header.php'); ?>
         </header>
         <!-- content -->
         <!-- advertisement -->
@@ -30,9 +30,10 @@
                             <div class="card" style="width: 400px;">
                                 <img width="400px" src="<?= $x['ProductPicture'] ?>" class="rounded" alt="">
                                 <div class="card-body">
-                                    <h5 class="card-title"><?= $x['ProductName'] ?></h5>
+                                    <h5 class="card-title2"><?= $x['ProductName'] ?></h5>
+                                    <h5 class="card-title">Color : <?= $x['ProductColor'] ?></h5>
                                     <h5 class="card-title">Size :<?= $x['ProductSize'] ?></h5>
-                                    <a href='Clothingphp.php?clothname=<?= $x["ProductName"]?>&color=<?= $x["ProductColor"]?>&size=<?= $x["ProductSize"]?>'>Buy</a><br>
+                                    <a class = 'btn-buy' href ='Clothingphp.php?clothname=<?= $x["ProductName"]?>&color=<?= $x["ProductColor"]?>&size=<?= $x["ProductSize"]?>'>Buy</a><br>
                                 </div>
                             </div>
         </div>

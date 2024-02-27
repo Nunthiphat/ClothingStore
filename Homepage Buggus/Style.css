@@ -11,6 +11,7 @@ header {
     height: 100px;
     border-bottom: 0.25rem solid #000;
     background-color: white;
+    justify-content: space-between;
     justify-items: center;
     align-items: center;
     padding-inline: 5px;
@@ -43,7 +44,6 @@ header .menu-item a {
     flex-direction: column;
     text-decoration: none !important;
     font-size: var(--text-font);
-    padding: 10px;
 }
 
 .dropdown-body .dropdown-nagivation {
@@ -81,4 +81,26 @@ ul.dropdown-body li a {
     margin: 1rem;
     text-decoration: none;
     color: #000;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 5px;
+    grid-row-gap: 0px;
+    background-color: antiquewhite;
+
+}
+
+.div1 {
+    grid-area: 1 / 1 / 6 / 4;
+}
+
+.div2 {
+    grid-area: 1 / 4 / 6 / 6;
+}
+
+.profile {
+    margin-inline: 5rem;
 }
