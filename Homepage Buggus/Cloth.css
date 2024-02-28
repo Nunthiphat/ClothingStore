@@ -1,12 +1,14 @@
+/* Reset CSS */
 body, h1, h2, h3, p, ul {
     margin: 0;
     padding: 0;
 }
 
+/* Header Styles */
 header {
-    background-color: #333; /* Dark background color */
-    color: #fff; /* Text color */
-    padding: 15px 0; /* Padding at the top and bottom */
+    background-color: #333;
+    color: #fff;
+    padding: 15px 0;
     position: relative;
 }
 
@@ -34,7 +36,8 @@ header {
 .menu-item #Logo:hover {
     color: #000;
 }
-/* Style the dropdown */
+
+/* Dropdown Styles */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -46,7 +49,6 @@ header {
     padding: 10px 15px;
     display: block;
 }
-
 
 .dropdown-body {
     display: none;
@@ -64,38 +66,33 @@ header {
     display: block;
 }
 
-.btn-cart {
+.btn-cart, .btn-profile {
     text-decoration: none;
     color: #fff;
-    background-color: #f57c00; 
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     position: absolute;
     top: 20px;
-    right: 40px;
-    width: 70px;
 }
 
 .btn-profile {
-    text-decoration: none;
-    color: #fff;
-    background-color: #f57c00;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    top: 20px;
     right: 120px;
+    background-color: #f57c00;
+    width: 80px;
 }
 
-.btn-profile:hover,
+.btn-cart {
+    right: 40px;
+    background-color: #f57c00;
+}
+
+.btn-profile:hover, 
 .btn-cart:hover {
-    background-color: #e65100;
+    background-color: #f57c00;
     color: #000;
 }
 
-/* Responsive styling */
 @media only screen and (max-width: 768px) {
     .navigation {
         flex-direction: column;
@@ -105,4 +102,37 @@ header {
     .dropdown {
         margin-bottom: 10px;
     }
+}
+
+.btn-buy {
+    background-color: green;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.btn-buy:hover {
+    background-color: gold;
+    color: #000;
+}
+
+.card {
+    width: 400px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    max-width: 100%;
+    height: auto;
+}
+
+.card-title2{
+    font-size: 17px;
 }

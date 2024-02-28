@@ -1,5 +1,5 @@
 <?php
-include ('Connection.php');
+include ('dtb.php');
 session_start();
 
 
@@ -14,7 +14,7 @@ $Check = "SELECT * FROM useraccount WHERE UserEmail = '$Email' AND UserPassword 
 $result = mysqli_query($conn , $Check);
 
 $data = mysqli_fetch_array($result);
-echo $data['UserType'];
+// echo $data['UserType'];
 
 if($data['UserType'] == "E"){
 
@@ -49,7 +49,7 @@ if($data['UserType'] == "E"){
   <div class="container">
 
     <!-- อย่าลืมเปลี่ยนไปหน้า Home action -->
-    <form action="#" method="post">
+    <form action="homepage.php" method="post">
 
     <div class="success-animation">
     <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>

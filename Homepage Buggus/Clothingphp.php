@@ -152,7 +152,6 @@ function addbilltail($conn, $BID, $ProductBillUnit, $BDDate, $ProductID){
 //for addbill to bey (addd to baracket)
 if (isset($_POST["addbill"])) {
     // EXAMPLE USER ID DONT FOR GET TO REMOVE
-    $_SESSION["UserID"] = 74;
     if(isset($_SESSION["UserID"])){
         $UserID = $_SESSION["UserID"];
     }
